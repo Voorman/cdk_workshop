@@ -1,6 +1,7 @@
 from aws_cdk import Stack
 from aws_cdk import aws_apigateway as apigw
 from aws_cdk import aws_lambda as _lambda
+from cdk_dynamo_table_view import TableViewer
 from constructs import Construct
 
 from .hitcounter import HitCounter
@@ -25,4 +26,11 @@ class CdkWorkshopStack(Stack):
             self,
             "Endpoint",
             handler=hello_with_counter._handler,
+        )
+
+        TableViewer(
+            self,
+            "ViewHitCounter",
+            title="Hello Hits",
+            table=hello_with_counter.table,
         )
